@@ -23,6 +23,7 @@ dependencies {
 
     testImplementation("io.quarkus:quarkus-junit5-internal")
     testImplementation("io.rest-assured:rest-assured")
+    testImplementation("io.quarkus:quarkus-resteasy-deployment")
 }
 
 java {

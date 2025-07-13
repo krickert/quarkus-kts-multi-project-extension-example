@@ -15,8 +15,8 @@ pluginManagement {
     }
 }
 
-includeBuild("extensions/example-extension")
-includeBuild("extensions/another-example-extension")
-includeBuild("libraries")
-includeBuild("application")
-includeBuild("integration-tests/example-extension-integration")
+includeBuild("../../libraries")
+includeBuild("../../extensions/example-extension")
+includeBuild("../../extensions/another-example-extension")
+
+rootProject.name = "example-extension-integration"
