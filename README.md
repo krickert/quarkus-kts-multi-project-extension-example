@@ -1,6 +1,6 @@
-# Quarkus Gradle Multi-Project Extension Example
+# Quarkus Gradle Kotlin DSL Multi-Project Extension Example
 
-This project demonstrates how to build Quarkus extensions using Gradle with a multi-module structure. It includes:
+This project demonstrates how to build Quarkus extensions using Gradle with Kotlin DSL in a multi-module structure. It includes:
 
 - Two Quarkus extensions (`example-extension` and `another-example-extension`)
 - Two shared libraries (`libraryA` and `libraryB`)
@@ -18,22 +18,22 @@ This example is based on the official Quarkus test resources but configured as a
 │   │   ├── main/                  # Application source code
 │   │   ├── test/                  # Unit tests
 │   │   └── integrationTest/       # Integration tests
-│   └── build.gradle
+│   └── build.gradle.kts
 ├── extensions/
 │   ├── example-extension/         # First Quarkus extension
 │   │   ├── deployment/           # Build-time module
 │   │   ├── runtime/              # Runtime module
-│   │   └── settings.gradle
+│   │   └── settings.gradle.kts
 │   └── another-example-extension/ # Second extension (depends on first)
 │       ├── deployment/
 │       ├── runtime/
-│       └── settings.gradle
+│       └── settings.gradle.kts
 ├── libraries/                     # Shared libraries
 │   ├── libraryA/
 │   ├── libraryB/
-│   └── settings.gradle
+│   └── settings.gradle.kts
 ├── gradle.properties              # Common properties
-└── settings.gradle                # Root settings with composite builds
+└── settings.gradle.kts            # Root settings with composite builds
 ```
 
 ## Prerequisites
@@ -79,12 +79,13 @@ cd application && ../gradlew quarkusDev
 
 ## Key Features Demonstrated
 
-1. **Multi-Module Gradle Structure**: Uses Gradle composite builds to manage multiple related projects
-2. **Quarkus Extension Plugin**: Properly configured with `io.quarkus.extension` plugin
-3. **Extension Dependencies**: Shows how one extension can depend on another
-4. **Library Integration**: Extensions can use external libraries
-5. **Configuration**: Demonstrates `@ConfigRoot` configuration (though using legacy style)
-6. **Testing**:
+1. **Kotlin DSL**: All Gradle build files use Kotlin DSL (`.gradle.kts`) for type-safe build configuration
+2. **Multi-Module Gradle Structure**: Uses Gradle composite builds to manage multiple related projects
+3. **Quarkus Extension Plugin**: Properly configured with `io.quarkus.extension` plugin
+4. **Extension Dependencies**: Shows how one extension can depend on another
+5. **Library Integration**: Extensions can use external libraries
+6. **Configuration**: Demonstrates `@ConfigRoot` configuration (though using legacy style)
+7. **Testing**:
    - Unit tests in applications
    - Integration tests using `@QuarkusIntegrationTest`
    - Deployment tests using `QuarkusUnitTest`
@@ -118,12 +119,15 @@ quarkus.anotherExample.extension.enabled=false
 - The configuration uses the legacy `@ConfigRoot` style and should be migrated to `@ConfigMapping`
 - The warning about unrecognized configuration key for `anotherExample.extension` is expected as it's not used in the application code
 
-## Next Steps
+## Kotlin DSL Specifics
 
-To convert this project to Kotlin DSL:
-1. Rename all `*.gradle` files to `*.gradle.kts`
-2. Convert the Groovy syntax to Kotlin
-3. Update plugin and dependency declarations
+This project uses Gradle Kotlin DSL throughout. Key syntax differences from Groovy:
+- String literals use double quotes
+- Plugin IDs use the `id()` function
+- Dependencies use function call syntax: `implementation()`, `api()`, etc.
+- Property access uses Kotlin delegation: `val propertyName: String by project`
+- Plugin configuration blocks use property setters: `deploymentModule.set()`
+- Task configuration uses `tasks.taskName { }` syntax
 
 ## License
 
